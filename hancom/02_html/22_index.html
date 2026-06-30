@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            이미지 경로
+        </title>
+    </head>
+    <body>
+        <h1>이미지 경로 설정</h1>
+        <!-- src 경로 = 사진이 어느 폴더에 있는지 길 안내 -->
+               <!-- ./ = 지금 폴더 안 img 폴더(상대경로) -->
+         <img src="../img/red.png" style = "width:20%" alt="빨강">
+         <img src="../img/orange.png" style="width:20%" alt="오렌지">
+                <!-- ./ = 지금 폴더 안 img 폴더(절대경로) -->
+                <!-- html에서는 파일경로에 있는 이미지 파일을 불러오지 못함
+                (작업 폴더 안에 폴더를 만들어서 임지 관리를 권장함) -->
+        <img src="file:///Users/Har09/Desktop/hancom/img/pink.png" style="width:20%" alt="핑크">
+    </body>
+</html>

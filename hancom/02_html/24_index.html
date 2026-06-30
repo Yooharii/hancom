@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            입력 type
+        </title>
+    </head>
+    <body>
+        <h1>입력 Type</h1>
+        <form>
+            <label>
+                메일 : 
+                <input type ="email", placeholder="메일 입력">
+                 <!-- 메일 칸 (@ 들어갔는지 검사) -->
+            </label>
+            <br>
+            <label>
+                비밀번호 : 
+                <input type ="password", placeholder="비밀번호 입력">
+                <!-- 점(••)으로 가려지는 칸 -->
+            </label>
+            <br>
+            <label>
+                동의 
+                <input type ="checkbox">
+                 <!-- 여러 개 고르기(네모) -->
+            </label>
+            <br>
+            <label>
+                성별 : 남
+                <input type ="radio" name="gender">
+                여
+                <input type ="radio" name="gender">
+                <!-- 하나만 고르기(동그라미), name 같으면 한 묶음 -->
+            </label>
+            <br>
+            <label>
+                날짜 :
+                <input type ="date">
+                  <!-- 날짜 고르기(달력) -->
+            </label>
+            <br><br>
+            <textarea>
+                안녕하세요.
+            </textarea>
+            <!-- 여러 줄 긴 글 칸 -->
+            <br><br>
+            <select> <!-- 펼쳐서 하나 고르기(드롭다운) -->
+                <option>서울</option>
+                <option>경기</option>
+                <option>부산</option>
+                <option>대전</option>
+                <option>제주도</option>
+            </select>
+            <br><br>
+            <label>
+                현재 컨디션 : 
+                <input type ="range">
+            </label>
+        </form>
+    </body>
+</html>
