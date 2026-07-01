@@ -1,0 +1,12 @@
+/* 기본 페이지 전체 */
+body{background-color: burlywood; font-family: sans-serif;}
+
+/* 요소 선택자 */
+h1{color:azure; text-align:center;}
+p{color:gray;}
+
+/* 클래스 선택자 */
+.special{color:orangered; font-weight: bold;}
+
+/* 자손 선택자 */
+li em{color: purple; font-style: normal;}

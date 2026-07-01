@@ -1,0 +1,9 @@
+/* body => h1, img, p, ul => .special(클래스) => a :일반 =>구체순서 */
+
+h1{ color : red;}
+p{color : green;}
+.special{color : orange;}
+li em{color : purple;}
+.normal{color : pink;}
+li{color : yellowgreen;}
+#sd{color : brown;}
