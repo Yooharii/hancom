@@ -1,0 +1,114 @@
+<!-- 
+ 1. 32_README.md 파일 형식 정리
+ 2. 33_README.md 파일 클로드 코드 설치 정리
+ 3. 34_index.html 미니 프로젝트 : 지금까지 배운 태그 활용하여 웹 사이트 구축 후 깃허브 업데이트
+
+  뼈대(STEP 05) · 시맨틱 header/nav/main/section/footer(STEP 28)
+• 제목·문단·목록·링크·이미지(STEP 06~16)
+• id로 메뉴 점프(STEP 19·22) · class로 스타일 묶기(STEP 18) · 표(STEP 26) · 폼(STEP 15)
+• 막히면 한 줄씩 질문(STEP 33) · F12로 확인(STEP 32)
+
+• 좋아하는 것 <section> 하나 더 추가
+• 링크(STEP 23)로 내 SNS 연결 <a href="..." target="_blank">
+• 다음 단계 CSS에서 색·글꼴·여백을 입혀 진짜 사이트처럼 꾸미기
+  -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        미니 프로젝트(HTML) - 한 페이지짜리 내 소개 페이지 만들기
+    </title>
+</head>
+<body>
+    <header>
+        <h1>자기소개 페이지</h1>
+        <p>안녕하세요. 저를 소개합니다.</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#intro" class="nav-link">자기소개</a></li>
+            <li><a href="#tel" class="nav-link">연락처</a></li>
+            <li><a href="#skill" class="nav-link">기술</a></li>
+            <li><a href="#like" class="nav-link">좋아하는것</a></li>
+            <li><a href="#record" class="nav-link">기록물 바로가기</a></li>
+        </ul>
+    </nav>
+    <main>
+    <section id = "intro">
+        <h3>자기소개</h3>
+        <img src="dog.png" width="20%">
+        <p>이름 : 유민성</p>
+        <p>나이 : 26 </p>
+        <p>전공 : 소프트웨어공학과</p>
+        <p>안녕하세요. <br> 저는 현재 AI 프론트엔드 과정을 참여하고 있습니다.</p>
+    </section>
+
+    <section id="tel">
+        <h3>연락처</h3>
+        <details>
+            <summary>이메일</summary>
+            <p>asdfqwer@naver.com</p>
+        </details>
+        <details>
+            <summary>전화번호</summary>
+            <p>010-1234-5678</p>
+        </details>
+    </section>
+
+    <section id = "skill">
+        <h3>배우고 있는 것</h3>
+            <ul>
+                <li> HTML</li>
+                <li> CSS</li>
+                <li> JavaScript</li>
+            </ul>
+        
+    </section>
+
+    <section id ="like">
+        <h3> 좋아하는것</h3>
+        <ol>
+            <li>야구시청</li>
+            <li>게임</li>
+            <li>여행다니기</li>
+        </ol>
+    </section>
+
+    <section id ="record">
+        <table border = "1">
+           <thead> 
+            <tr>
+                <th colspan="2">바로가기</th>
+            </tr> 
+            </thead>
+           <tbody>
+            <tr>
+                <td>깃허브</td>
+                <td>
+                    <a href="https://github.com/Yooharii/hancom" target="_blank">https://github.com/Yooharii/hancom</a>
+                </td>
+            </tr>
+            <tr>
+                <td>블로그</td>
+                <td>
+                    <a href="https://blog.naver.com/minworid" target="_blank">https://blog.naver.com/minworid</a>
+                </td>
+            </tr>
+            <tr>
+                <td>인스타그램</td>
+                <td>
+                    <a href="https://www.instagram.com/min_hariii" target="_blank">https://www.instagram.com/min_hariii</a>
+                </td>
+            </tr>
+           </tbody>
+        </table>
+    </section>
+    </main>
+
+    <footer>
+    <small>&copy; 2026 </small>
+    </footer>
+</body>
+</html>

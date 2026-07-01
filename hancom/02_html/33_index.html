@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- Q1. DOCTYPE 없으면? 브라우저가 호환성 모드로 동작해 CSS/레이아웃이 깨짐. 표준 모드 필수 -->
+
+<html lang="ko">
+<!-- Q2. lang="ko" → "en"? 브라우저/검색엔진이 영어 인식, 스크린 리더 영어 발음, SEO 영향 -->
+
+<head>
+  <meta charset="UTF-8">
+  <!-- 한글 깨지지 않게 -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Q3. viewport 역할? 모바일에 맞춰 표시. width=device-width(화면 너비), initial-scale=1.0(100%). 없으면 작거나 가로스크롤 필요 -->
+
+  <title>회원 가입</title>
+</head>
+
+<body>
+  <header>
+    <nav aria-label="주요 메뉴">
+    <!-- Q4. aria-label 필요? 시각장애인의 스크린 리더가 "주요 메뉴"를 음성으로 인식. 웹 접근성 표준 -->
+
+      <ul>
+        <li><a href="#join">가입</a></li>
+        <!-- Q5. href="#join"의 #? 같은 페이지 내 id="join"으로 점프하는 앵커. 페이지 새로 로드 안 함 -->
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="join">
+      <h2>회원 가입</h2>
+
+      <form action="/signup" method="post">
+      <!-- Q6. action vs method? action은 서버 주소, method는 전송 방식(POST=숨김, GET=주소창 노출) -->
+
+        <label for="email">이메일</label>
+        <input type="email" id="email" name="email" required>
+        <!-- Q7. label for와 input id 같으면? 라벨 클릭 시 입력창 포커스, 스크린 리더 정확히 읽음, 터치 영역 확대 -->
+        <!-- Q8. required 제거? 입력 안 해도 제출 가능. type="email"은 @ 포함, 도메인 형식 검사. 모바일에서 이메일 키보드 표시 -->
+
+        <fieldset>
+          <legend>관심사</legend>
+          <label><input type="checkbox" name="tag" value="fe"> 프론트엔드</label>
+          <label><input type="checkbox" name="tag" value="be"> 백엔드</label>
+          <!-- Q9. checkbox 여러 개의 name을 같게? 서버가 배열로 받음. tag=["fe","be"] 형태. name 다르면 하나씩 받아야 해서 번거움 -->
+        </fieldset>
+
+        <button type="submit">가입하기</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>요금제</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>플랜</th>
+            <th>가격</th>
+          </tr>
+        </thead>
+        <!-- Q10. thead/tbody 분리 이유? 코드 의미 명확, 스크린 리더가 헤더 인식, 인쇄 시 헤더 반복. th는 제목(굵게), td는 데이터 -->
+
+        <tbody>
+          <tr>
+            <td>무료</td>
+            <td>0원</td>
+          </tr>
+          <tr>
+            <td>프로</td>
+            <td>9,900원</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <small>&copy; 2026 커뮤니티</small>
+    <!-- Q11. &copy; 화면표시? © 기호. 직접 ⓒ 안 쓰는 이유: 입력 어려움, 인코딩 문제, HTML 엔티티가 국제표준, 안정적 -->
+  </footer>
+</body>
+</html>
