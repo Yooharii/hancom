@@ -1,0 +1,71 @@
+body{
+    /* 페이지를 일부러 길게 만들어서 스크롤 생성 */
+    min-height: 1500px;
+}
+
+/* 부모 박스 position: relative */
+.parent{
+    position : relative; /*기준이 되는 부모*/
+    width : 600px; height:120px;
+    border : 3px dashed blue;
+    border-radius: 8px;
+    background-color: rgb(247, 241, 241);
+    margin:10px 0;
+}
+
+/* relative:원래 자리 기준으로 이동 */
+/* absolute : 가장 가까운 position 조상(.parent) 기준 — 흐름에서 빠짐 */
+.ptag{
+    position:absolute;
+    top:6px;
+    left:10px;
+    color: purple;
+    font-weight:bold;
+}
+
+.rel{
+    position:relative;
+    top:50px;
+    left:20px;
+    width:150px;
+    padding:8px;
+    background: mediumaquamarine;
+    border-radius: 8px;
+    color: black;
+}
+
+.abs{
+    position:absolute;
+    background: rgb(132,46,59);
+    color:antiquewhite;
+    padding:10px;
+    bottom:50px;
+    right:16px;
+    /* z-index가 높은 것이 곂치는 부분 위에 보여준다 */
+    z-index:10;
+    border-radius: 8px;
+}
+
+/* fixed는 화면 고정-스크롤해도 그 자리 */
+.fixed{
+    position:fixed;
+    background-color: blueviolet;
+    color:white;
+    border-radius:8px;
+    padding: 5px;
+    font-weight: bold;
+    bottom:6px;
+    right:6px;
+}
+
+/* sticky는 스크롤 하다 top 0 지점에 닿으면 화면 상단에 붙임 */
+.sticky{
+    position:sticky;
+    top:0;
+    margin:10px 0;
+    padding:8px;
+    background: rgb(207, 236, 243);
+    font-weight: bold;
+    color:white;
+    border-radius: 6px;
+}

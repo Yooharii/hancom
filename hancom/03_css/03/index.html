@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>stylelint</title>
+</head>
+<body>
+    <h1>속성 순서 자동 정렬</h1>
+    <div class="box"></div>
+</body>
+</html>
+
+<!-- stylelint 적용하기
+1. 먼저 터미널에서 node -v, npm -v 실행하여 설치되어있는지 확인
+2. 설치가 안되었을시 https://nodejs.org/ko/download 에서 윈도우파일 설치
+3. node -v, npm -v 다시 실행하여 확인
+※ 이때 npm -v 실행 안될시
+->  -아래 명령어 입력하여 해결
+    -Set-ExecutionPolicy -Scope CurrentUser RemoteSigned 
+    -파웨셀 권한 문제(실행 정책문제)
+4. "cd ./"를 사용하여 폴더 이동 C:\Users\Har09\Desktop\hancom\03_css\03
+-- cd ~ : 처음파일로 이동 , cd .. 이전  폴더로 이동
+5. stylint설치 "npm install -D stylelint stylelint-config-standard stylelint-order" 명령어 입력
+6. notepad ./.stylelintrc.json 실행하여 제목이 stylelintrc.json 파일 생성
+json파일에
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "order/properties-alphabetical-order": true
+  }
+} 이력
+7. css파일 자동 수정 (정렬·오류)
+npx stylelint "styles/main.css" --fix
+8. html도 같은 검사 방법 있음
+- npm install -D htmlhint 설치
+9. 검사
+- npx htmlhint "index.html"
+(htmlhint는 자동수정은 해주지않음. 어디줄이 에러가 있는지 알려줌) -->
