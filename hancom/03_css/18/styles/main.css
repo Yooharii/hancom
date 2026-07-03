@@ -1,0 +1,15 @@
+*{
+    /* 기본 바깥 여백 제거 */
+    margin:0;
+    /* 기본 안쪽 여백 제거 */
+    padding:0;
+    /* 크기 계산 방식변경 */
+    box-sizing:border-box;
+}
+h1{
+    color: aquamarine;
+}
+
+p{
+    color:peru;
+}

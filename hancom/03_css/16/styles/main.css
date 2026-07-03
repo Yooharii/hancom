@@ -1,0 +1,20 @@
+.card{
+    width:150px; height:100px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255 184 122);
+    border-radius: 6px;
+    opacity: 0.85;/*투명도 85%*/
+    transition: all 0.3s ease;
+    font-weight: bold;
+    color:white;
+    font-size:20px
+}
+
+.card:hover{
+    opacity: 1;
+    transform: translateY(16px);
+    box-shadow: 0 -16px 32px rgba(255,105,180,0.5);  /* 그림자 진하게 */
+    /* 그림자 -> 0:좌우 -16px: 위쪽 32px : 번짐 rgba:색+투명도 */
+}
