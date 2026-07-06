@@ -1,0 +1,14 @@
+input{
+    width:60px;
+    padding:6px;
+    font-size:14px;
+}
+#btn{
+    padding : 10px 20px;
+    font-size:15px;
+    margin:10px;
+}
+#rel{
+    font-size: 30px;
+    font-weight: bold;
+}
