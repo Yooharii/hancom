@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질의응답 폼</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 680px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 36px 32px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 24px;
+            letter-spacing: -0.3px;
+        }
+
+        .search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1.5px solid #e0e4ec;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: #333;
+            background: #f8f9fc;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .search input::placeholder {
+            color: #aab0bc;
+        }
+
+        .search input:focus {
+            border-color: lightgreen;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.12);
+        }
+
+        .search button {
+            padding: 12px 22px;
+            background: lightgreen;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .search button:hover {
+            background: lightgreen;
+        }
+
+        .search button:active {
+            transform: scale(0.97);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 280px;
+            padding: 16px;
+            border: 1.5px solid #e0e4ec;
+            border-radius: 10px;
+            font-size: 0.93rem;
+            line-height: 1.7;
+            color: #333;
+            background: #f8f9fc;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+
+        textarea:focus {
+            border-color: #6c63ff;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.12);
+        }
+
+        textarea::placeholder {
+            color: #aab0bc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>❓Question?</h1>
+            <div class="search">
+                <input id = "q" type="text" placeholder="입력하세요">
+                <button id ="btn">Search</button>
+            </div>
+            <textarea id = "ans" placeholder="답변이 여기에 표시될거야!!!"></textarea>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
