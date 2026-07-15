@@ -1,0 +1,249 @@
+/* ── 말랑 계산기 · 피치+크림 클레이 ── */
+
+:root {
+  --bg: #FDEDE4;        /* 크림피치 바닥 */
+  --surface: #FFF6F0;   /* 아이보리 슬래브/키 */
+  --accent: #FF9E7D;    /* 코랄 (= 키, 포커스) */
+  --accent-2: #FFD26E;  /* 버터옐로 (연산자) */
+  --ink: #6B4A3B;       /* 브라운 글자 */
+  --ink-soft: #B79B8E;  /* 뮤트 브라운 */
+
+  --light: #FFFFFF;     /* 좌상단 하이라이트 */
+  --dark: #E4C9BC;      /* 우하단 그림자 */
+
+  /* 볼록 클레이: 바깥 그림자(우하단 어둡게 / 좌상단 밝게) + 안쪽 은은한 하이라이트 */
+  --clay-out:
+    6px 6px 14px var(--dark),
+    -6px -6px 14px var(--light),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.7),
+    inset -2px -2px 5px rgba(228, 201, 188, 0.55);
+  /* 눌렸을 때: 안으로 오목 */
+  --clay-in:
+    inset 5px 5px 11px var(--dark),
+    inset -5px -5px 11px var(--light);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 30% 20%, #FFF3EC 0%, transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font-family: "Nunito", system-ui, sans-serif;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem;
+}
+
+.stage {
+  width: 100%;
+  max-width: 720px;
+  animation: rise 0.5s ease-out both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 소개 ── */
+.intro { text-align: center; margin-bottom: 1.75rem; }
+.intro__title {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.9rem, 6vw, 2.6rem);
+  letter-spacing: -0.01em;
+}
+.intro__lede {
+  margin-top: 0.35rem;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+/* ── 배치: 넓은 화면 = 계산기 + 우측 기록 ── */
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  justify-content: center;
+}
+
+/* ── 계산기 슬래브 ── */
+.calc {
+  background: var(--surface);
+  border-radius: 32px;
+  padding: 1.4rem;
+  box-shadow: var(--clay-out);
+}
+
+/* ── 디스플레이 (오목한 홈) ── */
+.display {
+  background: var(--bg);
+  border-radius: 22px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--clay-in);
+  text-align: right;
+  overflow: hidden;
+}
+.display__expr {
+  font-family: "Nunito", sans-serif;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  min-height: 1.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.display__result {
+  display: block;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.4rem, 8vw, 3.3rem);
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.display__result.is-error {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  color: var(--accent);
+}
+
+/* ── 키패드 ── */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.key {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: none;
+  border-radius: 20px;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  box-shadow: var(--clay-out);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.key:hover { filter: brightness(1.02); }
+
+/* 시그니처: 말랑하게 눌려 들어감 */
+.key:active,
+.key.is-press {
+  transform: scale(0.96);
+  box-shadow: var(--clay-in);
+}
+
+.key--fn { color: var(--ink-soft); font-size: 1.3rem; }
+.key--op {
+  background: var(--accent-2);
+  color: #6B4A2B;
+  font-size: 1.7rem;
+}
+.key--eq { background: var(--accent); color: #fff; }
+.key--zero {
+  grid-column: span 2;
+  aspect-ratio: auto;
+}
+
+.key:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── 히스토리 ── */
+.history {
+  background: var(--surface);
+  border-radius: 26px;
+  padding: 0.9rem 1rem;
+  box-shadow: var(--clay-out);
+}
+.history__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  padding: 0.25rem 0.35rem;
+  border-radius: 12px;
+}
+.history__toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.history__chevron { transition: transform 0.2s ease; color: var(--ink-soft); }
+.history.is-collapsed .history__chevron { transform: rotate(-90deg); }
+
+.history__list {
+  list-style: none;
+  margin-top: 0.6rem;
+  max-height: 340px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.history.is-collapsed .history__list { display: none; }
+
+.history__empty {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0.5rem 0.35rem;
+}
+
+.history__item {
+  background: var(--bg);
+  border: none;
+  border-radius: 14px;
+  padding: 0.55rem 0.75rem;
+  text-align: right;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: inset 2px 2px 5px var(--dark), inset -2px -2px 5px var(--light);
+  transition: transform 0.1s ease;
+}
+.history__item:hover { transform: translateY(-1px); }
+.history__item:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.history__item .h-expr { display: block; color: var(--ink-soft); font-size: 0.82rem; }
+.history__item .h-res {
+  display: block;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+
+/* ── 반응형 ── */
+@media (max-width: 620px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .history { order: 2; }
+}
+
+/* ── 모션 최소화 존중 ── */
+@media (prefers-reduced-motion: reduce) {
+  .stage { animation: none; }
+  .key, .history__chevron, .history__item { transition: none; }
+  .key:active, .key.is-press { transform: none; }
+}

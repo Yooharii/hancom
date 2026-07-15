@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11번가 계산기</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #EEEEEE;
+      padding: 16px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333333;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .calculator {
+      width: 100%;
+      max-width: 360px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .display {
+      background: #111111;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+    }
+
+    .display::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(to right, #FF5A2E, #FF0038, #FF00EF);
+    }
+
+    .expression {
+      font-size: 14px;
+      font-weight: 400;
+      color: #999999;
+      text-align: right;
+      min-height: 20px;
+    }
+
+    .result {
+      font-size: 48px;
+      font-weight: 700;
+      color: #FFFFFF;
+      text-align: right;
+      min-height: 56px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      word-break: break-all;
+      letter-spacing: -0.01em;
+    }
+
+    .keypad {
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 60px;
+      gap: 6px;
+    }
+
+    button {
+      border: none;
+      border-radius: 4px;
+      font-size: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 120ms cubic-bezier(0.2, 0, 0.2, 1);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    button:active {
+      transform: scale(0.92);
+    }
+
+    /* 숫자 키 (0-9, .) */
+    button.number {
+      background: #F4F4F4;
+      color: #111111;
+    }
+
+    button.number:hover {
+      background: #EEEEEE;
+    }
+
+    button.number:active {
+      background: #DDDDDD;
+    }
+
+    /* 기능 키 (AC, ±, %) */
+    button.function {
+      background: #CCCCCC;
+      color: #111111;
+      font-size: 16px;
+    }
+
+    button.function:hover {
+      background: #BBBBBB;
+    }
+
+    button.function:active {
+      background: #AAAAAA;
+    }
+
+    /* 연산 키 (÷, ×, −, +) */
+    button.operator {
+      background: #FFFFFF;
+      color: #FF0038;
+      border: 1px solid #EEEEEE;
+      font-size: 24px;
+    }
+
+    button.operator:hover {
+      background: #F4F4F4;
+    }
+
+    button.operator:active {
+      background: #EEEEEE;
+    }
+
+    /* 등호 키 */
+    button.equals {
+      background: #FF0038;
+      color: #FFFFFF;
+      font-size: 24px;
+      grid-column: 4 / 5;
+    }
+
+    button.equals:hover {
+      background: #E60033;
+    }
+
+    button.equals:active {
+      background: #CC002D;
+      transform: scale(0.92);
+    }
+
+    /* 0 버튼 (2칸 차지) */
+    button.zero {
+      grid-column: span 2;
+    }
+
+    /* 터치 영역 최소 48×48dp */
+    @media (max-width: 480px) {
+      .calculator {
+        max-width: 100%;
+      }
+
+      header h1 {
+        font-size: 16px;
+      }
+
+      .result {
+        font-size: 40px;
+        min-height: 48px;
+      }
+
+      .display {
+        padding: 16px;
+      }
+
+      .keypad {
+        padding: 8px;
+        grid-auto-rows: 50px;
+        gap: 4px;
+      }
+
+      button {
+        font-size: 18px;
+      }
+
+      button.operator {
+        font-size: 20px;
+      }
+
+      button.equals {
+        font-size: 20px;
+      }
+    }
+
+    /* 모션 축소 대응 */
+    @media (prefers-reduced-motion: reduce) {
+      button,
+      .result {
+        transition: none;
+      }
+
+      button:active {
+        transform: none;
+      }
+    }
+
+    /* 결과 팝 애니메이션 */
+    .result.pop {
+      animation: resultPop 200ms cubic-bezier(0.2, 0, 0.2, 1);
+    }
+
+    @keyframes resultPop {
+      0% {
+        transform: scale(0.92);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>계산기</h1>
+  </header>
+
+  <main>
+    <div class="calculator">
+      <div class="display">
+        <div class="expression" id="expression"></div>
+        <div class="result" id="result">0</div>
+      </div>
+
+      <div class="keypad">
+        <!-- 첫 번째 행 -->
+        <button class="function" data-action="clear" aria-label="초기화">AC</button>
+        <button class="function" data-action="toggleSign" aria-label="부호 변경">±</button>
+        <button class="function" data-action="percent" aria-label="퍼센트">%</button>
+        <button class="operator" data-operator="÷" aria-label="나누기">÷</button>
+
+        <!-- 두 번째 행 -->
+        <button class="number" data-number="7" aria-label="7">7</button>
+        <button class="number" data-number="8" aria-label="8">8</button>
+        <button class="number" data-number="9" aria-label="9">9</button>
+        <button class="operator" data-operator="×" aria-label="곱하기">×</button>
+
+        <!-- 세 번째 행 -->
+        <button class="number" data-number="4" aria-label="4">4</button>
+        <button class="number" data-number="5" aria-label="5">5</button>
+        <button class="number" data-number="6" aria-label="6">6</button>
+        <button class="operator" data-operator="−" aria-label="빼기">−</button>
+
+        <!-- 네 번째 행 -->
+        <button class="number" data-number="1" aria-label="1">1</button>
+        <button class="number" data-number="2" aria-label="2">2</button>
+        <button class="number" data-number="3" aria-label="3">3</button>
+        <button class="operator" data-operator="+" aria-label="더하기">+</button>
+
+        <!-- 다섯 번째 행 -->
+        <button class="number zero" data-number="0" aria-label="0">0</button>
+        <button class="number" data-number="." aria-label="소수점">.</button>
+        <button class="equals" data-action="equals" aria-label="계산">=</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    class Calculator {
+      constructor() {
+        this.displayExpr = document.getElementById('expression');
+        this.displayResult = document.getElementById('result');
+        this.currentNumber = '0';
+        this.previousNumber = '';
+        this.operator = '';
+        this.shouldResetDisplay = false;
+        this.init();
+      }
+
+      init() {
+        document.querySelectorAll('button').forEach(btn => {
+          if (btn.dataset.number !== undefined) {
+            btn.addEventListener('click', () => this.inputNumber(btn.dataset.number));
+          } else if (btn.dataset.operator !== undefined) {
+            btn.addEventListener('click', () => this.inputOperator(btn.dataset.operator));
+          } else if (btn.dataset.action === 'clear') {
+            btn.addEventListener('click', () => this.clear());
+          } else if (btn.dataset.action === 'equals') {
+            btn.addEventListener('click', () => this.calculate());
+          } else if (btn.dataset.action === 'toggleSign') {
+            btn.addEventListener('click', () => this.toggleSign());
+          } else if (btn.dataset.action === 'percent') {
+            btn.addEventListener('click', () => this.percent());
+          }
+        });
+      }
+
+      inputNumber(num) {
+        if (this.shouldResetDisplay) {
+          this.currentNumber = num;
+          this.shouldResetDisplay = false;
+        } else {
+          if (num === '.' && this.currentNumber.includes('.')) return;
+          if (this.currentNumber === '0' && num !== '.') {
+            this.currentNumber = num;
+          } else if (!(this.currentNumber === '0' && num === '.')) {
+            this.currentNumber += num;
+          }
+        }
+        this.updateDisplay();
+      }
+
+      inputOperator(op) {
+        if (this.operator && !this.shouldResetDisplay) {
+          this.calculate();
+        }
+        this.previousNumber = this.currentNumber;
+        this.operator = op;
+        this.shouldResetDisplay = true;
+        this.updateDisplay();
+      }
+
+      calculate() {
+        if (!this.operator || !this.previousNumber) return;
+
+        const prev = parseFloat(this.previousNumber);
+        const current = parseFloat(this.currentNumber);
+
+        let result;
+        const opMap = {
+          '+': (a, b) => a + b,
+          '−': (a, b) => a - b,
+          '×': (a, b) => a * b,
+          '÷': (a, b) => (b !== 0 ? a / b : 0),
+        };
+
+        result = opMap[this.operator](prev, current);
+        this.currentNumber = String(result);
+        this.previousNumber = '';
+        this.operator = '';
+        this.shouldResetDisplay = true;
+
+        this.triggerPopAnimation();
+        this.updateDisplay();
+      }
+
+      clear() {
+        this.currentNumber = '0';
+        this.previousNumber = '';
+        this.operator = '';
+        this.shouldResetDisplay = false;
+        this.updateDisplay();
+      }
+
+      toggleSign() {
+        const num = parseFloat(this.currentNumber);
+        this.currentNumber = String(num * -1);
+        this.updateDisplay();
+      }
+
+      percent() {
+        const num = parseFloat(this.currentNumber);
+        this.currentNumber = String(num / 100);
+        this.updateDisplay();
+      }
+
+      updateDisplay() {
+        this.displayResult.textContent = this.currentNumber;
+
+        let exprText = '';
+        if (this.previousNumber) {
+          exprText = this.previousNumber + ' ' + this.operator + ' ';
+        }
+        this.displayExpr.textContent = exprText;
+      }
+
+      triggerPopAnimation() {
+        const result = this.displayResult;
+        result.classList.remove('pop');
+        void result.offsetWidth; // 리플로우 강제
+        result.classList.add('pop');
+      }
+    }
+
+    new Calculator();
+  </script>
+</body>
+</html>

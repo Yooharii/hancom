@@ -1,0 +1,140 @@
+:root {
+  --bg: #f0f2f5;
+  --card: #ffffff;
+  --display-bg: #f7f8fa;
+  --text: #1c1c1e;
+  --muted: #8a8a8e;
+  --num: #f2f3f5;
+  --num-hover: #e6e8eb;
+  --func: #e4e6ea;
+  --func-hover: #d5d8dd;
+  --accent: #ff9500;
+  --accent-hover: #ffab33;
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  padding: 16px;
+}
+
+.calculator {
+  width: 100%;
+  max-width: 340px;
+  background: var(--card);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.display {
+  background: var(--display-bg);
+  border-radius: 20px;
+  padding: 20px 20px 16px;
+  margin-bottom: 20px;
+  text-align: right;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.display-history {
+  color: var(--muted);
+  font-size: 1rem;
+  min-height: 1.2em;
+  word-break: break-all;
+}
+
+.display-current {
+  color: var(--text);
+  font-size: 2.8rem;
+  font-weight: 500;
+  line-height: 1.1;
+  word-break: break-all;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  border-radius: 18px;
+  height: 64px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text);
+  transition: background 0.15s ease, transform 0.05s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn-num {
+  background: var(--num);
+}
+.btn-num:hover {
+  background: var(--num-hover);
+}
+
+.btn-func {
+  background: var(--func);
+  color: var(--text);
+}
+.btn-func:hover {
+  background: var(--func-hover);
+}
+
+.btn-op {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-op:hover {
+  background: var(--accent-hover);
+}
+.btn-op.active {
+  background: #fff;
+  color: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.btn-eq {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-eq:hover {
+  background: var(--accent-hover);
+}
+
+.btn-zero {
+  grid-column: span 2;
+}
+
+@media (max-width: 360px) {
+  .btn {
+    height: 58px;
+    font-size: 1.25rem;
+  }
+  .display-current {
+    font-size: 2.4rem;
+  }
+}
