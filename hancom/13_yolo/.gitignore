@@ -1,0 +1,32 @@
+# YOLO model weights
+*.pt
+*.onnx
+*.engine
+
+# Images
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.gif
+*.mp4
+*.avi
+*.mov
+
+# YOLO output
+runs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
