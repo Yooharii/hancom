@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mistral Calculator — Frontier calculating. In your hands.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- promo-banner -->
+  <div class="promo-banner">
+    Frontier calculating. In your hands. — no sign-up, works right in your browser.
+  </div>
+
+  <!-- top-nav -->
+  <header class="top-nav">
+    <div class="nav-inner">
+      <a class="wordmark" href="#">MISTRAL AI<span class="cursor">_</span></a>
+      <nav class="nav-links">
+        <a href="#calculator">Calculator</a>
+        <a href="#">Products</a>
+        <a href="#">Solutions</a>
+        <a href="#">Research</a>
+        <a href="#">Company</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="#" class="nav-contact">Contact Sales</a>
+        <a href="#calculator" class="btn btn-primary">Try Calculator</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- hero-band-sunset -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">FRONTIER AI · CALCULATOR</p>
+        <h1 class="hero-display">Calculate.<br />In your hands.</h1>
+        <p class="hero-subtitle">
+          A calculator with editorial poise — sunset warmth, sober geometry,
+          and every result kept close in your running history.
+        </p>
+        <div class="hero-actions">
+          <a href="#calculator" class="btn btn-dark">Start calculating</a>
+          <a href="#" class="btn btn-secondary">View the design</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-sun"></div>
+        <div class="hero-ridge"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- calculator section -->
+  <section class="calc-section" id="calculator">
+    <div class="calc-grid">
+      <!-- calculator card -->
+      <div class="card-feature calc-card">
+        <div class="calc-display">
+          <div class="calc-expr" id="calcExpr">&nbsp;</div>
+          <div class="calc-result" id="calcResult">0</div>
+        </div>
+        <div class="calc-keys" id="calcKeys">
+          <button class="calc-btn calc-btn--fn" data-action="clear">C</button>
+          <button class="calc-btn calc-btn--fn" data-action="negate">±</button>
+          <button class="calc-btn calc-btn--fn" data-action="percent">%</button>
+          <button class="calc-btn calc-btn--op" data-op="/">÷</button>
+
+          <button class="calc-btn" data-digit="7">7</button>
+          <button class="calc-btn" data-digit="8">8</button>
+          <button class="calc-btn" data-digit="9">9</button>
+          <button class="calc-btn calc-btn--op" data-op="*">×</button>
+
+          <button class="calc-btn" data-digit="4">4</button>
+          <button class="calc-btn" data-digit="5">5</button>
+          <button class="calc-btn" data-digit="6">6</button>
+          <button class="calc-btn calc-btn--op" data-op="-">−</button>
+
+          <button class="calc-btn" data-digit="1">1</button>
+          <button class="calc-btn" data-digit="2">2</button>
+          <button class="calc-btn" data-digit="3">3</button>
+          <button class="calc-btn calc-btn--op" data-op="+">+</button>
+
+          <button class="calc-btn calc-btn--zero" data-digit="0">0</button>
+          <button class="calc-btn" data-action="decimal">.</button>
+          <button class="calc-btn calc-btn--equals" data-action="equals">=</button>
+        </div>
+      </div>
+
+      <!-- history panel -->
+      <aside class="card-cream history-card">
+        <div class="history-head">
+          <h2 class="history-title">History</h2>
+          <button class="btn-link" id="clearHistory">Clear history</button>
+        </div>
+        <ul class="history-list" id="historyList">
+          <li class="history-empty">Your calculations will appear here.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- sunset-stripe-band (brand signature) -->
+  <div class="sunset-stripe" aria-hidden="true"></div>
+
+  <!-- footer-region -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="wordmark footer-mark">MISTRAL AI<span class="cursor">_</span></div>
+        <p class="footer-tag">Frontier AI. In your hands.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Why Mistral</h3>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">News</a>
+      </div>
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="#">Products</a>
+        <a href="#">Solutions</a>
+        <a href="#">Research</a>
+      </div>
+      <div class="footer-col">
+        <h3>Build</h3>
+        <a href="#calculator">Calculator</a>
+        <a href="#">Le Studio</a>
+        <a href="#">Docs</a>
+      </div>
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mistral Calculator · Design demo</span>
+      <span>English (US)</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

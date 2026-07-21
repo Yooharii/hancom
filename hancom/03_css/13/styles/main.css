@@ -1,0 +1,13 @@
+.grid{
+    display:grid;
+    grid-template-columns: repeat(3,2fr);
+    gap:12px;
+}
+
+.card{
+    border-radius:6px;
+    background:rgb(3, 252, 177);
+    color:white;
+    padding: 10px 0;
+    text-align:center;    
+}

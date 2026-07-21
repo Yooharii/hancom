@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>계산기</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  .calculator {
+    width: 320px;
+    background: #1c1c1e;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .display {
+    background: transparent;
+    color: #fff;
+    text-align: right;
+    padding: 20px 12px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .history {
+    color: #8e8e93;
+    font-size: 20px;
+    min-height: 26px;
+    word-break: break-all;
+  }
+  .current {
+    font-size: 52px;
+    font-weight: 300;
+    word-break: break-all;
+    line-height: 1.1;
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+  button {
+    border: none;
+    border-radius: 50%;
+    height: 68px;
+    font-size: 26px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+    background: #333333;
+    transition: filter 0.15s;
+    user-select: none;
+  }
+  button:active { filter: brightness(1.4); }
+  .num { background: #333333; }
+  .op { background: #ff9f0a; }
+  .func { background: #a5a5a5; color: #000; }
+  .zero { grid-column: span 2; border-radius: 34px; width: 100%; text-align: left; padding-left: 28px; }
+</style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display">
+      <div class="history" id="history"></div>
+      <div class="current" id="current">0</div>
+    </div>
+    <div class="buttons">
+      <button class="func" data-action="clear">AC</button>
+      <button class="func" data-action="sign">+/−</button>
+      <button class="func" data-action="percent">%</button>
+      <button class="op" data-op="/">÷</button>
+
+      <button class="num" data-num="7">7</button>
+      <button class="num" data-num="8">8</button>
+      <button class="num" data-num="9">9</button>
+      <button class="op" data-op="*">×</button>
+
+      <button class="num" data-num="4">4</button>
+      <button class="num" data-num="5">5</button>
+      <button class="num" data-num="6">6</button>
+      <button class="op" data-op="-">−</button>
+
+      <button class="num" data-num="1">1</button>
+      <button class="num" data-num="2">2</button>
+      <button class="num" data-num="3">3</button>
+      <button class="op" data-op="+">+</button>
+
+      <button class="num zero" data-num="0">0</button>
+      <button class="num" data-num=".">.</button>
+      <button class="op" data-action="equals">=</button>
+    </div>
+  </div>
+
+<script>
+  const currentEl = document.getElementById('current');
+  const historyEl = document.getElementById('history');
+
+  let current = '0';
+  let previous = null;
+  let operator = null;
+  let resetNext = false;
+
+  const opSymbols = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+
+  function updateDisplay() {
+    currentEl.textContent = formatNumber(current);
+    historyEl.textContent = previous !== null && operator
+      ? `${formatNumber(previous)} ${opSymbols[operator]}`
+      : '';
+  }
+
+  function formatNumber(str) {
+    if (str === 'Error') return str;
+    const [intPart, decPart] = str.split('.');
+    const sign = intPart.startsWith('-') ? '-' : '';
+    const digits = sign ? intPart.slice(1) : intPart;
+    const formatted = Number(digits).toLocaleString('en-US');
+    return sign + formatted + (decPart !== undefined ? '.' + decPart : '');
+  }
+
+  function inputNumber(n) {
+    if (resetNext) { current = '0'; resetNext = false; }
+    if (n === '.') {
+      if (!current.includes('.')) current += '.';
+    } else {
+      current = current === '0' ? n : current + n;
+    }
+    updateDisplay();
+  }
+
+  function chooseOperator(op) {
+    if (operator && !resetNext) compute();
+    previous = current;
+    operator = op;
+    resetNext = true;
+    updateDisplay();
+  }
+
+  function compute() {
+    if (operator === null || previous === null) return;
+    const a = parseFloat(previous);
+    const b = parseFloat(current);
+    let result;
+    switch (operator) {
+      case '+': result = a + b; break;
+      case '-': result = a - b; break;
+      case '*': result = a * b; break;
+      case '/': result = b === 0 ? 'Error' : a / b; break;
+    }
+    current = result === 'Error' ? 'Error' : String(Math.round(result * 1e10) / 1e10);
+    previous = null;
+    operator = null;
+    resetNext = true;
+  }
+
+  function clearAll() {
+    current = '0'; previous = null; operator = null; resetNext = false;
+    updateDisplay();
+  }
+
+  function toggleSign() {
+    if (current === '0' || current === 'Error') return;
+    current = current.startsWith('-') ? current.slice(1) : '-' + current;
+    updateDisplay();
+  }
+
+  function percent() {
+    if (current === 'Error') return;
+    current = String(parseFloat(current) / 100);
+    updateDisplay();
+  }
+
+  document.querySelector('.buttons').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    if (btn.dataset.num !== undefined) inputNumber(btn.dataset.num);
+    else if (btn.dataset.op) chooseOperator(btn.dataset.op);
+    else if (btn.dataset.action === 'equals') { compute(); updateDisplay(); }
+    else if (btn.dataset.action === 'clear') clearAll();
+    else if (btn.dataset.action === 'sign') toggleSign();
+    else if (btn.dataset.action === 'percent') percent();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const k = e.key;
+    if (k >= '0' && k <= '9') inputNumber(k);
+    else if (k === '.') inputNumber('.');
+    else if (['+', '-', '*', '/'].includes(k)) chooseOperator(k);
+    else if (k === 'Enter' || k === '=') { compute(); updateDisplay(); }
+    else if (k === 'Escape') clearAll();
+    else if (k === '%') percent();
+    else if (k === 'Backspace') {
+      if (!resetNext && current !== 'Error') {
+        current = current.length > 1 ? current.slice(0, -1) : '0';
+        updateDisplay();
+      }
+    }
+  });
+
+  updateDisplay();
+</script>
+</body>
+</html>

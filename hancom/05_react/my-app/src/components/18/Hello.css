@@ -1,0 +1,13 @@
+.box{
+    padding:20px;
+    background: lightgreen;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.box h1{
+    color:navy;
+}
+
+p{color:purple;}
+

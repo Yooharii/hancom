@@ -1,0 +1,29 @@
+.box{
+    display :flex; /*flex : 가로로 정렬*/
+    flex-direction: row; /*가로배치 (왼쪽에서 오른쪽으로)*/
+    gap:12px;
+    padding: 10px;
+    background: rgba(241, 245, 249);
+    height:100px;
+}
+.card{
+    flex:1;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border:1px solid blue;
+    border-radius: 20px;
+    background:linear-gradient(135deg,rgb(59, 130, 246),rgb(244, 63, 94));
+    color :white; 
+}
+/* 화면 폭이 600px이하일때만 아래 규칙 적용(모바일) */
+@media(max-width:700px){
+    .box{
+        flex-direction: column;
+        height: auto;
+    }
+    /* card의 최소 높이 설정 */
+    .card{
+        min-height: 80px;
+    }
+}

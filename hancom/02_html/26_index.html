@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            표 합치기
+        </title>
+    </head>
+    <body>
+        <table border ="1">
+           <thead>
+            <tr>
+                  <!-- colspan=5 → 가로 5칸을 하나로 합침 -->
+                <th colspan="5">
+                    성적표
+                </th>
+            </tr>
+           </thead>
+           <tbody>
+           <tr>
+                <!-- rowspan=3 → '언어' 칸이 세로 3줄을 하나로 합침 -->
+                <td rowspan="3">
+                    과목
+                </td>
+                <td>국어</td><td>90</td>
+                <td rowspan="3"> 평균</td>
+                <td rowspan="3"> 85</td>
+            </tr>
+            </tr> 
+            <tr>
+                <td>영어</td><td>80</td>
+            </tr>
+            <tr>
+                <td>수학</td><td>85</td>
+            </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

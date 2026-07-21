@@ -1,0 +1,27 @@
+.mo{
+    display:flex;
+}
+.neon{
+    width:200px; height:120px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    color:rgb(255, 255, 255);
+    font-size:22px;
+    font-weight:bold;
+    background: linear-gradient(135deg,#ec4899,#8b5cf6);
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.7);
+    margin:10px;
+}
+.neon2{
+    width:100px;height:80px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 18px;
+    background: linear-gradient(64deg, yellow, red);
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.7);
+    margin:10px;
+}

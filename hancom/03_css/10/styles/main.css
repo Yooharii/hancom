@@ -1,0 +1,25 @@
+@keyframes move{
+    0%, 100%{transform: translateY(0);}/*시작0%, 끝 100%*/
+    50%{transform:translateY(-30px);} /* 중간(50%): 위로 30px 올라감 (translateY 음수 = 위) */
+}
+@keyframes move2{
+    0%, 200%{transform:translateX(0);}
+    100%{transform:translateX(50px)};
+}
+
+.ball{
+    margin:10%;
+    border:1px solid red;
+    width:80px;height:80px;
+    border-radius: 50%;
+    background-color: red;
+    animation: move 0.5s linear infinite;
+}
+.ball2{
+    margin:10%;
+    border:1px solid beige;
+    width:80px;height:80px;
+    border-radius: 50%;
+    background-color: beige;
+    animation: move2 1.5s linear infinite;
+}

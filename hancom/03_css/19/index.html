@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>
+        미니프로젝트(html + css)
+    </title>
+    <!-- 상단 메뉴바 고정 -->
+</head>
+<body>
+    <header class="bar">
+        <div class="top-bar">
+            <h1> 미니프로젝트(HTML + CSS)</h1>
+        </div>
+       <nav class="main-bar">
+        <div class="subject">
+            <!-- 로고 -->
+            <div class="container">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="date">2026.07.03</div>
+        </div>
+
+        <div class="search">
+          <input type="text" placeholder="여기에 검색하시오." />
+        </div>
+
+        <div class="list">
+          <ul>
+            <li><a href="#">Web</a></li>
+            <li><a href="#section2">HTML과CSS</a></li>
+            <li><a href="#section3">🔎Quiz</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- 메인 섹터 3가지 -->
+     <main class ="main-content">
+        <section class = "top">
+            <div class="subtitle" id="section1">
+                AI기반 프론트엔드 웹개발자 양성과정
+            </div>
+            <h1 class="main-title">
+                <a href="https://www.awwwards.com/" target="_blank">마음에 드는 웹</a>
+            </h1>
+            <div class="button">
+                <div class="btn-box">
+                    <a href="" target="_blank" class="btn">📄 의견 →</a>
+                    <div class="btn-drop">
+                        <ol>
+                            <li>Awwwards 홈페이지는 이미지들이 잘 정돈되어 배치되어 있다.</li>
+                            <li>배경이나 메뉴 폰트 색상은 무채색을 많이 사용 하였는데 화면이 빈공간이 없게 느껴진다.</li>
+                            <li>카드들 마다 다양한 속성이 적용된것같다.</li>
+                            <li>화면 길이에 비하여 가독성이 불편하지 않았다.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="btn-box">
+                    <a href="" target="_blank" class="btn">📄 분석 →</a>
+                    <div class="btn-drop">
+                        <ol>
+                            <li>display:flex로 카드를 감싸는 부모 요소를 만들고 그 안에서 분할이든 gap과 같은 속성으로 간격을 맞추면 비슷한 효과가 가능할것같다.</li>
+                            <li>이미지가 다채로워 주변 색을 무채색으로 표현한것같고 필요한 부분은 font속성을 사용하여 강조한것같다.</li>
+                            <li>우리가 배운 link, visited, hover, active와 같이 가상클래스 사용자를 사용하여 다양한 효과를 주면 될것같다.</li>
+                            <li>position 속성 중 fixed를 사용하여 내가 필요한 부분으로 이동하기 간편했다.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        
+            <img src="/03_css/19/webpage.png" class ="web1" alt="마음에 드는 웹페이지">
+
+        </section>
+        
+        <section class ="middle" id = "section2">
+            <div class="subtitle">HTML와 CSS</div>
+            <h2 class="mid-title">HTML과 CSS의 차이</h2>
+            <div class="card-box">
+                <div class="card-item">
+                    <div class="card-icon">🧱</div>
+                    <h3>HTML</h3>
+                    <p>웹 페이지의 구조를 정의하는 마크업 언어.<br>태그로 콘텐츠의 의미와 계층을 표현합니다.</p>
+                </div>
+                <div class="card-item">
+                    <div class="card-icon">🎨</div>
+                    <h3>CSS</h3>
+                    <p>HTML 요소에 <br>색상·크기·배치 등<br>시각적 스타일을 입히는 <br>스타일 언어입니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bottom" id="section3">
+            <div class="subtitle">
+                🔎 Quiz?
+            </div>
+            <div class="grid-box">
+                <div class="element" tabindex="0">
+                    <div class="front">
+                        <a>⭐</a>
+                        <p>Flexbox와 Grid의 <br>가장 큰 차이?</p>
+                    </div>
+                    <div class="back">
+                        <p class="answer">
+                            Flexbox는 1차원(줄)정렬<br>
+                            Grid는 2차원(행+열)정렬
+                        </p>
+                    </div>   
+                </div>
+                <div class="element" tabindex="0">
+                    <div class="front">
+                        <a>⭐</a>
+                        <p>box-sizing:border-box의<br>역할은?</p>
+                    </div>
+                    <div class="back">
+                        <p class="answer">
+                            padding과 border를<br>
+                            width/height 안에 포함시켜 계산한다
+                        </p>
+                    </div>   
+                </div>
+                <div class="element" tabindex="0">
+                    <div class="front">
+                        <a>⭐</a>
+                        <p>CSS 선택자 우선순위가<br> 가장 높은것은?</p>
+                    </div>
+                    <div class="back">
+                        <p class="answer">
+                            <p>#header</p>
+                        </p>
+                    </div>   
+                </div>
+                <div class="element" tabindex="0">
+                    <div class="front">
+                        <a>⭐</a>
+                        <p>position:absolute는<br>기준을 어디로 잡을까?</p>
+                    </div>
+                    <div class="back">
+                        <p class="answer">
+                            <p>position이 static이 아닌<br>가장 가까운 부모 요소</p>
+                        </p>
+                    </div>   
+                </div>
+                <div class="element" tabindex="0">
+                    <div class="front">
+                        <a>⭐</a>
+                        <p>부모 요소 안에서 자식요소를 <br> 가로•세로•정중앙에<br> 배치하는 방법은?</p>
+                    </div>
+                    <div class="back">
+                         <p class="answer">
+                            <p>display: flex;<br>align-items: center;<br>justify-content: center;</p>
+                        </p>
+                    </div>   
+                </div>
+                
+            </div>
+        </section>
+        <div class="fixed">
+            <a href="mailto:minworid@naver.com">📧</a>
+        </div>
+     </main>
+     <footer>
+        <p>
+            &copy; 2026 My Website. All rights reserved.
+        </p>
+        <p>
+            Loading spinner by 
+            <a href="https://uiverse.io/terenceodonoghue/rare-cow-16" target="_blank">terenceodonoghue on Uiverse.io</a>
+        </p>
+    </footer>
+</body>
+</html>

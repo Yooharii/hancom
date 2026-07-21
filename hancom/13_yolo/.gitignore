@@ -30,7 +30,3 @@ env/
 # OS
 .DS_Store
 Thumbs.db
-
-# Node / env
-node_modules/
-.env

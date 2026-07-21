@@ -1,0 +1,60 @@
+.star-title{
+    color:navy;
+    font-size:50px;
+}
+.star-title::before{
+    content:"⭐";
+}
+
+.quote{
+    color:gray;
+    font-style:italic;
+}
+.quote::before{
+    content:"\201c ";
+    color:tomato;
+}
+.quote::after{
+    content:"\201d";
+}
+
+.underline-deco{
+    position:relative;
+    color:green;
+    display:inline-block;
+}
+
+.underline-deco::after{
+    content:"";
+    background:royalblue;
+    width:100%;
+    height:2px;
+    display:block;
+}
+*{
+    margin :0;
+    padding:0;
+    box-sizing: border;
+}
+.bar{
+    position :relative;
+    color:rgb(2, 124, 49);
+    background:rgb(204, 247, 220);
+    width:100%;
+    display:inline-block;
+    text-align: center;;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.bar::before{
+    content:"🍀"
+}
+.bar::after{
+    content:"";
+    display:block;
+    background: transparent;
+    width:100%;
+    height:1px;
+}

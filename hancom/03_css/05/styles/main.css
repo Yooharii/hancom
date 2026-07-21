@@ -1,0 +1,26 @@
+.menu{
+    display: flex;
+    gap: 30px;
+    list-style:none;
+    font-style:italic
+}
+
+/* li 부분 디자인 입히기 */
+#li1{
+    background-color: rgb(241, 186, 186);
+    border: 3px solid white;
+    border-radius: 8px;
+    padding :10px 20px 10px 20px;
+}
+#li2{
+    background-color: rgb(126, 188, 207);
+    border: 3px solid white;
+    border-radius: 8px;
+    padding :10px 20px 10px 20px;
+}
+#li3{
+    background-color: rgb(179, 240, 194);
+    border: 3px solid white;
+    border-radius: 8px;
+    padding :10px 20px 10px 20px;
+}

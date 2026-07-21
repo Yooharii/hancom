@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>좌석배치도</title>
+    <style>
+        body { font-family: sans-serif; padding: 24px; }
+        h1 { text-align: center; margin-bottom: 16px; }
+        #teacher-row { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+        .teacher { padding: 14px 24px; background: lightblue; border-radius: 8px; font-size: 15px; }
+        #grid { display: flex; gap: 40px; align-items: stretch; }
+        .block { display: grid; grid-template-columns: repeat(3, 120px); gap: 10px; }
+        .aisle { width: 60px; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 8px; color: #999; font-size: 13px; writing-mode: vertical-rl; letter-spacing: 4px; }
+        .seat { padding: 14px; text-align: center; background: beige; border-radius: 8px; font-size: 15px; cursor: pointer; }
+        .seat:hover { background: #f0d9a0; }
+        .seat.selected { background: #f7c948; outline: 2px solid #e0a800; }
+        .seat.empty { background: #e8e8e8; }
+        .seat.empty:hover { background: #d5d5d5; }
+        #actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        #actions button { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+        #btn-edit   { background: #4f86f7; color: white; }
+        #btn-delete { background: #e74c3c; color: white; }
+        #btn-add    { background: #2ecc71; color: white; }
+        #btn-reset  { background: #aaa; color: white; }
+    </style>
+</head>
+<body>
+    <h1>좌석배치도</h1>
+    <div id="teacher-row"><div class="teacher">선생님</div></div>
+    <div id="grid">
+        <div class="block" id="left"></div>
+        <div class="aisle">복 도</div>
+        <div class="block" id="right"></div>
+    </div>
+    <div id="actions">
+        <button id="btn-edit"   onclick="editStudent()">수정</button>
+        <button id="btn-delete" onclick="deleteStudent()">삭제</button>
+        <button id="btn-add"    onclick="addStudent()">추가</button>
+        <button id="btn-reset"  onclick="resetSeats()">배치 초기화</button>
+    </div>
+
+    <script>
+        let leftSeats = []
+        let rightSeats = []
+        let selectedId = null
+        let selectedSide = null
+        let selectedSlot = null
+
+        function saveSeats() {
+            localStorage.setItem('seats', JSON.stringify({ left: leftSeats, right: rightSeats }))
+        }
+
+        // 학생 목록 불러오기 — GET
+        async function loadStudents() {
+            const res = await fetch('/api/students')
+            const students = await res.json()
+
+            const saved = localStorage.getItem('seats')
+            if (saved) {
+                const { left, right } = JSON.parse(saved)
+                const sync = s => {
+                    if (!s) return null
+                    const found = students.find(u => u.id === s.id)
+                    return found ? { id: found.id, name: found.name } : null
+                }
+                leftSeats  = left.map(sync)
+                rightSeats = right.map(sync)
+            } else {
+                // 최초 로드: 절반씩 배치
+                leftSeats  = Array.from({length: 12}, (_, i) => students[i]      || null)
+                rightSeats = Array.from({length: 12}, (_, i) => students[i + 12] || null)
+            }
+
+            saveSeats()
+            render()
+            selectedId = null
+            selectedSide = null
+            selectedSlot = null
+        }
+
+        function render() {
+            const seat = (side) => (s, i) => s
+                ? `<div class="seat" onclick="select(${s.id},'${side}',${i},this)">${s.name}</div>`
+                : `<div class="seat empty" onclick="select(null,'${side}',${i},this)"></div>`
+            document.getElementById('left').innerHTML  = leftSeats.map(seat('left')).join('')
+            document.getElementById('right').innerHTML = rightSeats.map(seat('right')).join('')
+        }
+
+        // 좌석 선택
+        function select(id, side, slot, el) {
+            document.querySelectorAll('.seat').forEach(s => s.classList.remove('selected'))
+            el.classList.add('selected')
+            selectedId   = id
+            selectedSide = side
+            selectedSlot = slot
+        }
+
+        // 수정 — PUT
+        async function editStudent() {
+            if (!selectedId) return alert('학생 좌석을 먼저 선택하세요')
+            const name = prompt('새 이름:')
+            if (!name) return
+            await fetch(`/api/students/${selectedId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name })
+            })
+            loadStudents()
+        }
+
+        // 삭제 — DELETE
+        async function deleteStudent() {
+            if (!selectedId) return alert('학생 좌석을 먼저 선택하세요')
+            await fetch(`/api/students/${selectedId}`, { method: 'DELETE' })
+            if (selectedSide === 'left') leftSeats[selectedSlot] = null
+            else rightSeats[selectedSlot] = null
+            saveSeats()
+            loadStudents()
+        }
+
+        // 추가 — POST (빈 자리 선택 후 추가)
+        async function addStudent() {
+            if (selectedId !== null) return alert('빈 자리를 선택하세요')
+            if (selectedSide === null) return alert('빈 자리를 먼저 선택하세요')
+            const name = prompt('추가할 이름:')
+            if (!name) return
+
+            // POST 전 ID 목록 저장
+            const before = await fetch('/api/students').then(r => r.json())
+            const beforeIds = before.map(s => s.id)
+
+            // POST
+            await fetch('/api/students', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name })
+            })
+
+            // POST 후 새로 추가된 학생 찾기
+            const after = await fetch('/api/students').then(r => r.json())
+            const newStudent = after.find(s => !beforeIds.includes(s.id))
+
+            if (newStudent) {
+                if (selectedSide === 'left') leftSeats[selectedSlot] = { id: newStudent.id, name: newStudent.name }
+                else rightSeats[selectedSlot] = { id: newStudent.id, name: newStudent.name }
+                saveSeats()
+            }
+            selectedId = null
+            selectedSide = null
+            selectedSlot = null
+            render()
+        }
+
+        // 배치 초기화 (수동)
+        async function resetSeats() {
+            if (!confirm('배치를 초기화할까요?')) return
+            localStorage.removeItem('seats')
+            loadStudents()
+        }
+
+        loadStudents()
+    </script>
+</body>
+</html>

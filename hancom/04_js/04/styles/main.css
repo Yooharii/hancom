@@ -1,0 +1,25 @@
+#bStr{
+    padding: 10px 20px;
+}
+#bNum{
+    padding: 10px 20px;
+}
+#bBool{
+    padding: 10px 20px;
+}
+#bUndef{
+    padding: 10px 20px;
+}
+#bNull{
+    padding: 10px 20px;
+}
+#bArr{
+    padding: 10px 20px;
+}
+#bObj{
+    padding: 10px 20px;
+}
+#out{
+    font-size: 30px;
+    font-style: bold;
+}

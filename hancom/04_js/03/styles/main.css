@@ -1,0 +1,13 @@
+#name{
+    
+    font-size:20px;
+}
+#btn{
+    padding:10 20px;
+    cursor: pointer;
+}
+#out{
+    font-size: 30px;
+    color:blueviolet;
+    font-style: bold;
+}

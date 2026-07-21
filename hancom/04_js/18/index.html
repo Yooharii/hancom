@@ -1,0 +1,164 @@
+<!-- 기획서
+1. 프로젝트 이름 : 하리 갤러리
+2. 하리가 어렸을때 부터 지금까지의 성장일기
+3. 목표 : 하리가 성장하면서 기억나는 대표사진들을 시간순으로 보고 싶어서
+4. 핵심 기능 3가지
+- 상단 좋아요 클릭시 좋아요 갯수 모으기
+- 사진 추가하기 기능으로 레코드 부분 사진 추가하기
+(화살표 눌러서 파일 불러오고 새로운 추억이 생겻나요? 부분이 사진이미지로 바뀌면서 사진추가하기 누르면 레코드 부분에 추가되게 하기)
+- 레코드 부분에 사진 넘겨가면서 볼수있게 만들기
+ -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>미니프로젝트(HTML+CSS+JS)</title>
+    <!-- font 적용 -->
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kavoon&family=Do+Hyeon&display=swap"
+      rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+      <p class="logo">Hari's Gallery</p>
+      <button id="like">좋아요 ❤️</button>
+      <nav class="nav-links">
+        <!-- 링크에 마우스를 올리면 드롭다운이 나오는 구조 (03_css/19의 btn-box/btn-drop 패턴) -->
+        <div class="nav-item">
+          <a href="#intro">Project</a>
+          <!-- 프로젝트 이유 -->
+          <div class="nav-drop">
+            <ol>
+              <li> 하리를 보여줄수 있는 페이지를 만들자.</li>
+              <li> 하리의 순간들을 보여주자</li>
+              <li> 하리의 하루일과</li>
+              <li> 하리의 계정들을 소개하자</li>
+            </ol>
+          </div>
+        </div>
+        <span id="count">♥️ + 0</span>
+        
+        <div class="nav-item">
+          <a href="#todo">Profile</a>
+          <!-- 하리 프로필 -->
+          <div class="nav-drop">
+            <ol>
+              <li>이름 : 하리</li>
+              <li>생일 : 2020년 12월 24일</li>
+              <li>데리고 온 날 : 2021년 2월 28일 </li>
+              <li>종 : 세이블 포메라니안</li>
+            </ol>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page-grid">
+      <div class="left-col">
+        <div class="row-top">
+          <!-- 레코드 : 하리 대표 사진 + 캐러셀 -->
+          <section class="record-text">
+            <span class="record-icon" aria-hidden="true">🐾</span>
+
+            <!-- 캐러셀 화살표 : 링 전체를 앞/뒤로 회전 -->
+            <button class="carousel-arrow prev" aria-label="이전 사진">‹</button>
+            <button class="carousel-arrow next" aria-label="다음 사진">›</button>
+
+            <!-- 휴지통 : 정면에 보이는 사진이 '올린 사진'일 때만 활성화되어 삭제 -->
+            <button class="carousel-delete" aria-label="현재 사진 삭제" disabled>🗑️</button>
+
+            <!-- 3D 회전 캐러셀 : 사진(img)은 JS가 photos 배열로 만들어 링 안에 원형 배치 -->
+            <div class="record-carousel">
+              <div class="record-carousel-viewport">
+                <div class="record-carousel-ring"></div>
+              </div>
+            </div>
+
+            <h1 class="record-title">Hari's Growth Record</h1>
+          </section>
+
+          <!-- 레코드 옆 사진 카드 -->
+          <section class="main-photo">
+            <img
+              class="photo-placeholder"
+              src="./assets/main-photo.jpg"
+              alt="하리의 대표 사진"
+            />
+          </section>
+        </div>
+
+        <div class="row-bottom">
+          <!-- 소개 카드 : 하리 프로필 정보 -->
+          <section class="intro" id="intro">
+            <span class="intro-icon" aria-hidden="true">🐾</span>
+            <div class="intro-body">
+              <h2 class="intro-title">하리 갤러리 소개</h2>
+              <p>
+                하리가 태어난 순간부터 지금까지, 자라나는 모습을 시간순으로 담은
+                온라인 성장일기입니다. 기억하고 싶은 순간들을 사진으로 모아
+                언제든 다시 꺼내볼 수 있도록 만들었어요.
+              </p>
+            </div>
+          </section>
+
+          <!-- 하단 카드 : 좋아하는 것 / 메모 -->
+          <section class="bottom">
+            <!-- 상단 : 미리보기 + 추가 버튼 -->
+            <div class="bottom-head">
+              <p class="bottom-sub">새로운 추억이 생겼나요?</p>
+              <!-- 선택한 사진 미리보기 : 평소엔 숨김 -->
+              <img class="bottom-preview" id="preview" alt="추가할 사진 미리보기" hidden />
+              <button class="add-icon" aria-label="사진 파일 선택">↗</button>
+            </div>
+            <!-- 중간 : 실제 파일 선택창 (화면엔 안 보이고 버튼이 대신 열어줌) -->
+            <input type="file" id="photoInput" accept="image/*" hidden />
+            <!-- 하단 : 제목 -->
+            <button class="bottom-title">사진 추가하기</button>
+          </section>
+        </div>
+      </div>
+
+      <aside class="right-col" id="todo">
+        <!-- 우측 리스트 : 하리의 하루 일과 -->
+        <section class="sidebar">
+          <div class="sidebar-head">
+            <h2>Hari's Daily Todo-List</h2>
+            <span class="arrow-icon" aria-hidden="true">↗</span>
+          </div>
+          <img
+            class="photo-placeholder sidebar-photo"
+            src="./assets/side-photo.jpg"
+            alt="투두 대표 사진"
+          />
+          <ul class="todo-list">
+            <li>아침 산책</li>
+            <li>간식(관절영양제)</li>
+            <li>점심 닭고기+유산균</li>
+            <li>밥먹기</li>
+            <li>저녁산책</li>
+            <li>영양제 챙겨먹기</li>
+          </ul>
+        </section>
+
+        <!-- 소셜 카드 -->
+        <section class="socials">
+          <ul class="social-list">
+            <li>
+              <a href="https://www.instagram.com/hari._.0228/" target="_blank"
+                >INSTAGRAM</a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/@HARI-0228" target="_blank"
+                >YOUTUBE</a>
+            </li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+    <script src="./scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.card{
+    
+    border-radius : 12px;
+    background: yellowgreen;
+    padding : 20px;
+    width: 200px;
+    align-items: center;
+    margin:30% 40%;
+}
