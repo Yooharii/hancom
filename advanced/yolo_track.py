@@ -5,7 +5,8 @@ import cv2
 stream_url = "http://210.99.70.120:1935/live/cctv009.stream/playlist.m3u8"
 cap = cv2.VideoCapture(stream_url)
 # 2. 모델 로드
-model = YOLO("yolo11n.pt")
+model = YOLO("yolo11n-pt")
+
 # 3. 프레임 처리
 while cap.isOpened():
     success, frame = cap.read()
