@@ -1,0 +1,22 @@
+from transformers import pipeline
+
+# 1. 텍스트 생성 파이프라인 생성
+generator = pipeline(
+    "text-generation",
+    model="gpt2"
+    # model = "skt/kogpt2-base-v2" #한국어 지원
+)
+
+# 2. 시드 문장 입력
+answer = input("생성 문장을 입력해주세요 : ")
+
+# 3. 텍스트 생성 실행
+results = generator(
+    answer, 
+    max_new_tokens=50,          #추가 생성할 토큰수(길수록 추론 시간 길어짐)
+    num_return_sequences= 1,    # 반환 문장 개수
+    truncation=True              #입력이 모델 최대 길이 초과시 자르기
+)
+
+# 4. 결과 확인
+print(results[0]["generated_text"])
